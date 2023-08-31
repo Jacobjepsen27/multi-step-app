@@ -7,6 +7,7 @@ import { flex, center } from '../../../styled-system/patterns';
 import DesktopBackground from "../../../public/images/bg-sidebar-desktop.svg";
 import MobileBackground from "../../../public/images/bg-sidebar-mobile.svg";
 import Image from "next/image"
+import PersonalInfo from './components/PersonalInfoForm/PersonalInfoForm';
 
 function Onboarding() {
 
@@ -25,23 +26,23 @@ function Onboarding() {
           <h1>Mobile progress</h1>
         </div>
       </div>
-      <Card css={{ position: "fixed", top: "100px", left: "16px", right: "16px", bottom: "100px", overflow: "scroll", maxWidth: "550px", mx: "auto" }}>
+      <Card css={{ position: "fixed", top: "100px", left: "16px", right: "16px", overflow: "scroll", maxWidth: "550px", mx: "auto" }}>
         <main className={center({ height: "100px" })}>
           <h1>Mobile content</h1>
-        </main>
-        <div className={mobileFixedButtonsStyle}>
-          <div className={flex({ justifyContent: "space-between", maxW: "550px", mx: "auto" })}>
-            <Button variant='outline'>Go back</Button>
-            <Button variant='primary' onClick={() => console.log("tester")}>Next Step</Button>
+          <div className={mobileFixedButtonsStyle}>
+            <div className={flex({ justifyContent: "space-between", maxW: "550px", mx: "auto" })}>
+              <Button variant='outline'>Go back</Button>
+              <Button variant='primary'>Next Step</Button>
+            </div>
           </div>
-        </div>
+        </main>
       </Card>
     </div>
 
     {/* Desktop  */}
     <div className={center({ display: "flex", hideBelow: "md", height: "100%" })}>
       <Card css={{ display: "flex", width: "900px", height: "600px" }}>
-        <div className={css({ position: "relative", borderRadius: "lg", overflow: "hidden", width: "274px", objectFit: "cover" })}>
+        <div className={css({ position: "relative", borderRadius: "lg", overflow: "hidden", width: "274px", objectFit: "cover", flexShrink: "0" })}>
           <Image
             priority
             className={css({ isolation: "isolate", position: "absolute", inset: "0" })}
@@ -53,13 +54,14 @@ function Onboarding() {
           </div>
         </div>
         <main className={desktopMainStyles}>
-          <div className={css({ flexGrow: "1", paddingBottom: "16px" })}>
-
+          <PersonalInfo />
+          {/* <div className={css({ flexGrow: "1", paddingBottom: "16px" })}>
+            Main content
           </div>
           <div className={flex({ justifyContent: "space-between" })}>
             <Button variant='outline'>Go back</Button>
             <Button variant='primary' onClick={() => console.log("tester")}>Next Step</Button>
-          </div>
+          </div> */}
         </main>
       </Card>
     </div>
