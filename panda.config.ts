@@ -16,6 +16,7 @@ export default defineConfig({
       tokens: {
         colors: {
           marineBlue: { value: 'hsl(213, 96%, 18%)' },
+          marineBlueActive: { value: 'hsl(213, 96%, 30%)' },
           purpleBlue: { value: 'hsl(243, 100%, 62%)' },
           pastelBlue: { value: 'hsl(228, 100%, 84%)' },
           lightBlue: { value: 'hsl(206, 94%, 87%)' },

@@ -1,3 +1,4 @@
+"use client"
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import * as React from 'react';
@@ -28,10 +29,10 @@ function Onboarding() {
         <main className={center({ height: "100px" })}>
           <h1>Mobile content</h1>
         </main>
-        <div className={css({ position: "fixed", bottom: "0", left: "0", right: "0", bg: "white", padding: "16px" })}>
+        <div className={mobileFixedButtonsStyle}>
           <div className={flex({ justifyContent: "space-between", maxW: "550px", mx: "auto" })}>
-            <Button>PREV</Button>
-            <Button>NEXT</Button>
+            <Button variant='outline'>Go back</Button>
+            <Button variant='primary' onClick={() => console.log("tester")}>Next Step</Button>
           </div>
         </div>
       </Card>
@@ -51,12 +52,21 @@ function Onboarding() {
             <h1>Desktop progress</h1>
           </div>
         </div>
-        <main className={center({ flexGrow: "1" })}>
-          <h1>Desktop content</h1>
+        <main className={desktopMainStyles}>
+          <div className={css({ flexGrow: "1", paddingBottom: "16px" })}>
+
+          </div>
+          <div className={flex({ justifyContent: "space-between" })}>
+            <Button variant='outline'>Go back</Button>
+            <Button variant='primary' onClick={() => console.log("tester")}>Next Step</Button>
+          </div>
         </main>
       </Card>
     </div>
   </>;
 }
+const mobileFixedButtonsStyle = css({ position: "fixed", bottom: "0", left: "0", right: "0", bg: "white", padding: "16px" });
+
+const desktopMainStyles = flex({ flexDir: "column", flexGrow: "1", padding: "0px 64px 0px 80px" });
 
 export default Onboarding;
