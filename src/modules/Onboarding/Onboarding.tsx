@@ -7,7 +7,7 @@ import { flex, center } from '../../../styled-system/patterns';
 import DesktopBackground from "../../../public/images/bg-sidebar-desktop.svg";
 import MobileBackground from "../../../public/images/bg-sidebar-mobile.svg";
 import Image from "next/image"
-import PersonalInfo from './components/PersonalInfoForm/PersonalInfoForm';
+import PersonalInfoForm from './components/PersonalInfoForm/PersonalInfoForm';
 
 function Onboarding() {
 
@@ -54,7 +54,7 @@ function Onboarding() {
           </div>
         </div>
         <main className={desktopMainStyles}>
-          <PersonalInfo />
+          <PersonalInfoForm />
           {/* <div className={css({ flexGrow: "1", paddingBottom: "16px" })}>
             Main content
           </div>

@@ -3,8 +3,9 @@ import Button from '@/components/Button';
 import * as React from 'react';
 import { css } from '../../../../../styled-system/css';
 import { flex, vstack } from '../../../../../styled-system/patterns';
+import TextInput from '@/components/TextInput/TextInput';
 
-function PersonalInfo() {
+function PersonalInfoForm() {
   return <>
     <div className={css({ flexGrow: "1", paddingBottom: "16px" })}>
       <div>
@@ -19,9 +20,9 @@ function PersonalInfo() {
         e.preventDefault();
         console.log(e);
       }} className={vstack({ gap: "24px", marginTop: "32px", alignItems: "stretch" })}>
-        <input type="text" className={css({ border: "1px solid" })} placeholder='Name' />
-        <input type="text" className={css({ border: "1px solid" })} placeholder='Email Address' />
-        <input type="text" className={css({ border: "1px solid" })} placeholder='Phone Number' />
+        <TextInput label='Name' placeholder='e.g. Stephen King' />
+        <TextInput label='Email Address' placeholder='e.g. stephenking@lorem.com' />
+        <TextInput label='Phone Number' placeholder='e.g. +1 234 567' />
       </form>
     </div>
     <div className={flex({ justifyContent: "space-between" })}>
@@ -32,4 +33,4 @@ function PersonalInfo() {
   </>;
 }
 
-export default PersonalInfo;
+export default PersonalInfoForm;
