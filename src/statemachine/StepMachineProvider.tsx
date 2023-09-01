@@ -1,27 +1,18 @@
 import { useInterpret } from "@xstate/react";
-import React, { useContext } from "react";
-import stepMachine, { StepMachineContext, StepMachineInterpreter } from "./stepMachine";
+import React from "react";
+import stepMachine, { StepMachineInterpreter } from "./stepMachine";
 
-const StepMachineContext = React.createContext<StepMachineInterpreter | undefined>(undefined);
+
+type StepContextValue = { service: StepMachineInterpreter };
+
+export const StepMachineReactContext = React.createContext({} as StepContextValue);
 
 const StepMachineProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const stepService = useInterpret(stepMachine);
-    return <StepMachineContext.Provider value={stepService}>
+    const service = useInterpret(stepMachine);
+
+    return <StepMachineReactContext.Provider value={{ service }}>
         {children}
-    </StepMachineContext.Provider>
-}
-
-export const useStepMachineContext = () => {
-    const stepService = useContext(StepMachineContext);
-
-    const next = (data: StepMachineContext) => {
-        // transition to next state
-    }
-
-    const prev = () => {
-        // transition to prev state
-    }
-    return [stepService];
+    </StepMachineReactContext.Provider>
 }
 
 export default StepMachineProvider;

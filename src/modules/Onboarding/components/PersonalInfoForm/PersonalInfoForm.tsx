@@ -5,7 +5,17 @@ import { css } from '../../../../../styled-system/css';
 import { flex, vstack } from '../../../../../styled-system/patterns';
 import TextInput from '@/components/TextInput/TextInput';
 
-function PersonalInfoForm() {
+export type PersonalInfoFormValues = {
+  name: string,
+  email: string,
+  phoneNumber: string
+}
+
+type PersonalInfoFormProps = {
+  onSubmit: () => void;
+}
+
+function PersonalInfoForm(props: PersonalInfoFormProps) {
   return <>
     <div className={css({ flexGrow: "1", paddingBottom: "16px" })}>
       <div>
@@ -18,7 +28,7 @@ function PersonalInfoForm() {
       </div>
       <form id="personalInfo" onSubmit={(e) => {
         e.preventDefault();
-        console.log(e);
+        props.onSubmit();
       }} className={vstack({ gap: "24px", marginTop: "32px", alignItems: "stretch" })}>
         <TextInput label='Name' placeholder='e.g. Stephen King' />
         <TextInput label='Email Address' placeholder='e.g. stephenking@lorem.com' />
