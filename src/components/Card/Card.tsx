@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { css } from '../../../styled-system/css';
-import { SystemStyleObject } from '@pandacss/dev';
+import { SystemStyleObject } from '../../../styled-system/types';
 
 type CardProps = React.ComponentPropsWithoutRef<"div"> & {
   css?: SystemStyleObject

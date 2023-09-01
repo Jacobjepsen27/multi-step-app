@@ -2,7 +2,7 @@
 import Button from '@/components/Button';
 import * as React from 'react';
 import { css } from '../../../../../styled-system/css';
-import { flex, vstack } from '../../../../../styled-system/patterns';
+import { vstack } from '../../../../../styled-system/patterns';
 import TextInput from '@/components/TextInput/TextInput';
 
 export type PersonalInfoFormValues = {
@@ -17,7 +17,7 @@ type PersonalInfoFormProps = {
 
 function PersonalInfoForm(props: PersonalInfoFormProps) {
   return <>
-    <div className={css({ flexGrow: "1", paddingBottom: "16px" })}>
+    <div className={css({ paddingBottom: "16px" })}>
       <div>
         <h1 className={css({ fontSize: "28px", color: "marineBlue", fontWeight: "bold", mt: "32px" })}>
           Personal info
@@ -35,11 +35,12 @@ function PersonalInfoForm(props: PersonalInfoFormProps) {
         <TextInput label='Phone Number' placeholder='e.g. +1 234 567' />
       </form>
     </div>
-    <div className={flex({ justifyContent: "space-between" })}>
-      {/* Should be a global prev button */}
-      <Button variant='outline'>Go back</Button>
-      <Button form='personalInfo' variant='primary'>Next Step</Button>
-    </div>
+    <Button form='personalInfo' variant='primary' cssOverride={css.raw({
+      base: { position: "fixed", right: "16px", bottom: "16px" },
+      lg: { position: "absolute", right: "0px", bottom: "0px" }
+    })}>
+      Next Step
+    </Button>
   </>;
 }
 

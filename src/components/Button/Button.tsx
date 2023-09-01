@@ -1,7 +1,8 @@
+"use client"
 import * as React from 'react';
 import { ComponentPropsWithoutRef } from 'react';
 import { RecipeVariantProps, css, cva } from '../../../styled-system/css';
-import { SystemStyleObject } from '@pandacss/dev';
+import { SystemStyleObject } from '../../../styled-system/types';
 
 const buttonStyle = cva({
   base: {
