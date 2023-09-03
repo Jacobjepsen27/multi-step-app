@@ -3,7 +3,6 @@ import * as React from 'react';
 import PersonalInfoForm from '../PersonalInfoForm/PersonalInfoForm';
 import { StepProps } from '../../stepProps';
 import { OnboardingMachineReactContext } from '@/statemachine/OnboardingMachineProvider';
-import { useActor } from '@xstate/react';
 
 function PersonalInfoStep(props: StepProps) {
 
