@@ -13,7 +13,8 @@ export type PersonalInfoFormValues = {
 }
 
 type PersonalInfoFormProps = {
-  onSubmit: () => void;
+  onSubmit: (data: PersonalInfoFormValues) => void;
+  defaultValues?: PersonalInfoFormValues
 }
 
 function PersonalInfoForm(props: PersonalInfoFormProps) {
@@ -22,9 +23,9 @@ function PersonalInfoForm(props: PersonalInfoFormProps) {
   const registerNameProps = register("name", {
     required: "This field is required.",
     pattern: {
-      value: /^[A-Za-z]+$/,
+      value: /^[a-zA-Z ]+$/,
       "message": "Only letters allowed"
-    }
+    },
   });
 
   const registerEmailProps = register("email", {
@@ -36,7 +37,7 @@ function PersonalInfoForm(props: PersonalInfoFormProps) {
   });
 
   const formValidationOk = (data: PersonalInfoFormValues) => {
-    props.onSubmit();
+    props.onSubmit(data);
   }
 
   return <>
@@ -50,9 +51,9 @@ function PersonalInfoForm(props: PersonalInfoFormProps) {
         </p>
       </div>
       <form id="personalInfo" onSubmit={handleSubmit(formValidationOk)} className={vstack({ gap: "24px", marginTop: "32px", alignItems: "stretch" })}>
-        <TextInput {...registerNameProps} errorMessage={errors.name?.message} label='Name' placeholder='e.g. Stephen King' />
-        <TextInput {...registerEmailProps} errorMessage={errors.email?.message} label='Email Address' placeholder='e.g. stephenking@lorem.com' />
-        <TextInput {...registerPhoneProps} errorMessage={errors.phoneNumber?.message} label='Phone Number' placeholder='e.g. +1 234 567' />
+        <TextInput defaultValue={props.defaultValues?.name} {...registerNameProps} errorMessage={errors.name?.message} label='Name' placeholder='e.g. Stephen King' />
+        <TextInput defaultValue={props.defaultValues?.email} {...registerEmailProps} errorMessage={errors.email?.message} label='Email Address' placeholder='e.g. stephenking@lorem.com' />
+        <TextInput defaultValue={props.defaultValues?.phoneNumber} {...registerPhoneProps} errorMessage={errors.phoneNumber?.message} label='Phone Number' placeholder='e.g. +1 234 567' />
       </form>
     </div>
     <Button form='personalInfo' variant='primary' cssOverride={css.raw({

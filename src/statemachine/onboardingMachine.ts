@@ -1,5 +1,5 @@
 import { PersonalInfoFormValues } from '@/modules/onboarding/components/PersonalInfoForm';
-import { InterpreterFrom, MachineConfig, createMachine } from 'xstate';
+import { InterpreterFrom, MachineConfig, assign, createMachine } from 'xstate';
 
 type Plan = "Arcade" | "Advanced" | "Pro"
 
@@ -8,7 +8,7 @@ export type OnboardingMachineContext = {
     plan?: Plan,
 }
 
-export type OnboardingEvents = { type: "NEXT", data: OnboardingMachineContext } | { type: "PREV" }
+export type OnboardingEvents = { type: "PREV" } | { type: "personalInfo", data: PersonalInfoFormValues }
 
 export const enum OnboardingState {
     PersonalInfo = "personalInfo",
@@ -30,21 +30,26 @@ const onboardingMachineConfig: MachineConfig<OnboardingMachineContext, Onboardin
     states: {
         personalInfo: {
             on: {
-                NEXT: {
+                personalInfo: {
                     target: [OnboardingState.Plan],
-                },
+                    actions: assign((context, event) => {
+                        return {
+                            ...context,
+                            personalInfo: event.data
+                        }
+                    })
+                }
             },
         },
         plan: {
             on: {
                 PREV: [OnboardingState.PersonalInfo],
-                NEXT: [OnboardingState.Done],
             }
         },
         done: {
             type: "final"
         }
-    }
+    },
 };
 export type OnboardingMachineInterpreter = InterpreterFrom<typeof onboardingMachine>;
 const onboardingMachine = createMachine(onboardingMachineConfig);
