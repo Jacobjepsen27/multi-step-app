@@ -8,52 +8,69 @@ import DesktopBackground from "../../../public/images/bg-sidebar-desktop.svg";
 import MobileBackground from "../../../public/images/bg-sidebar-mobile.svg";
 import Image from "next/image"
 import PersonalInfoStep from './components/PersonalInfoStep';
-import StepMachineProvider from '@/statemachine/StepMachineProvider';
+import { OnboardingMachineReactContext } from '@/statemachine/OnboardingMachineProvider';
+import { useActor } from '@xstate/react';
+import { OnboardingSchema, OnboardingState } from '@/statemachine/onboardingMachine';
+
+type OnboardingComponents = {
+  [K in keyof OnboardingSchema["states"]]: React.ComponentType<any>;
+};
+
+const onboardingComponentsMap: OnboardingComponents = {
+  personalInfo: PersonalInfoStep,
+  plan: () => <div>Hello from plan step</div>,
+  done: () => <></>
+}
 
 function Onboarding() {
 
-  // This content should be wrappen in StepProvider to allow child components to get context about statemachine
+  const { service } = React.useContext(OnboardingMachineReactContext);
+  const [state, send] = useActor(service);
+
+  const currentState = state.value;
+  const ComponentToRender = onboardingComponentsMap[currentState as OnboardingState];
+
   return <>
-    <StepMachineProvider>
-      <div className={containerStyles}>
-        {/* Mobile navigation */}
-        <div className={mobileNavigationStyles}>
+    <div className={containerStyles}>
+      {/* Mobile blue background */}
+      <div className={mobileNavigationStyles}>
+        <Image
+          priority
+          className={css({ isolation: "isolate", minHeight: "100%", height: "auto%", width: "100%", objectFit: "cover", position: "absolute", inset: "0" })}
+          src={MobileBackground}
+          alt={"Decorative background image"}
+        />
+        <div className={center({ isolation: "isolate", position: "absolute", top: "32px", left: "0", right: "0" })}>
+          <h1>Mobile progress</h1>
+        </div>
+      </div>
+      <Card css={cardStyles}>
+        {/* Desktop blue background */}
+        <div className={desktopNavigationStyles}>
           <Image
             priority
-            className={css({ isolation: "isolate", minHeight: "100%", height: "auto%", width: "100%", objectFit: "cover", position: "absolute", inset: "0" })}
-            src={MobileBackground}
+            className={css({ isolation: "isolate", position: "absolute", inset: "0" })}
+            src={DesktopBackground}
             alt={"Decorative background image"}
           />
-          <div className={center({ isolation: "isolate", position: "absolute", top: "32px", left: "0", right: "0" })}>
-            <h1>Mobile progress</h1>
+          <div className={center({ isolation: "isolate", height: "100%" })}>
+            <h1>Desktop progress</h1>
           </div>
         </div>
-        <Card css={cardStyles}>
-          {/* Desktop navigation */}
-          <div className={desktopNavigationStyles}>
-            <Image
-              priority
-              className={css({ isolation: "isolate", position: "absolute", inset: "0" })}
-              src={DesktopBackground}
-              alt={"Decorative background image"}
-            />
-            <div className={center({ isolation: "isolate", height: "100%" })}>
-              <h1>Desktop progress</h1>
-            </div>
-          </div>
-          <main className={mainStyles}>
-            <PersonalInfoStep />
-            <Button
-              variant='outline'
-              cssOverride={backButtonStyles}
-            >
-              Go back
-            </Button>
-          </main>
-        </Card>
-        <div className={mobileWhiteFooterStyles} />
-      </div>
-    </StepMachineProvider>
+        <main className={mainStyles}>
+          <ComponentToRender />
+          <Button
+            variant='outline'
+            cssOverride={backButtonStyles}
+            onClick={() => send("PREV")}
+          >
+            Go back
+          </Button>
+        </main>
+      </Card>
+      <div className={mobileWhiteFooterStyles} />
+    </div>
+
   </>;
 }
 

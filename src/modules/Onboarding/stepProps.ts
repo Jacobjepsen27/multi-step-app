@@ -1,3 +1,3 @@
-import { StepMachineContext } from "@/statemachine/stepMachine";
+import { OnboardingMachineContext } from "@/statemachine/onboardingMachine";
 
-export type StepProps = StepMachineContext
+export type StepProps = OnboardingMachineContext
