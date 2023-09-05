@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { css } from '../../../styled-system/css';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 type ToggleProps = {
   value?: boolean,
@@ -41,7 +42,15 @@ function Toggle({ value: valueFromProps, defaultValue, onChange }: ToggleProps) 
     onClick={handleToggle}
     style={{ justifyContent: value ? "flex-end" : "flex-start" }}
   >
-    <span className={css(ballStyle)} />
+    <motion.span
+      className={css(ballStyle)}
+      layout={true}
+      transition={{
+        type: 'spring',
+        stiffness: 500,
+        damping: 40,
+      }}
+    />
   </button>;
 }
 
