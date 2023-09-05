@@ -11,6 +11,7 @@ import PersonalInfoStep from './components/PersonalInfoStep';
 import { OnboardingMachineReactContext } from '@/statemachine/OnboardingMachineProvider';
 import { useActor } from '@xstate/react';
 import { OnboardingSchema, OnboardingState } from '@/statemachine/onboardingMachine';
+import PlanStep from './components/PlanStep';
 
 type OnboardingComponents = {
   [K in keyof OnboardingSchema["states"]]: React.ComponentType<any>;
@@ -18,7 +19,7 @@ type OnboardingComponents = {
 
 const onboardingComponentsMap: OnboardingComponents = {
   personalInfo: PersonalInfoStep,
-  plan: () => <div>Hello from plan step</div>,
+  plan: PlanStep,
   done: () => <></>
 }
 
