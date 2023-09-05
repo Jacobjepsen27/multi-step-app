@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { css } from '../../../../../styled-system/css';
 import { flex } from '../../../../../styled-system/patterns';
+import Toggle from '@/components/Toggle';
 
 export type PlanFormValues = {
 
@@ -22,7 +23,7 @@ function PlanForm(props: PlanFormProps) {
       </p>
     </div>
     <form>
-
+      <Toggle defaultValue={true} onChange={(val) => console.log("new value: ", val)} />
     </form>
   </div>;
 }

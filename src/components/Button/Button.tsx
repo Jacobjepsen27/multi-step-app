@@ -12,6 +12,7 @@ const buttonStyle = cva({
     borderRadius: "lg",
     cursor: "pointer",
     transition: "background-color 150ms",
+    outlineOffset: "2px"
   },
   variants: {
     variant: {
