@@ -59,13 +59,15 @@ function Onboarding() {
         </div>
         <main className={mainStyles}>
           <ComponentToRender />
-          <Button
-            variant='outline'
-            cssOverride={backButtonStyles}
-            onClick={() => send("PREV")}
-          >
-            Go back
-          </Button>
+          {state.nextEvents.includes("PREV") &&
+            <Button
+              variant='outline'
+              cssOverride={backButtonStyles}
+              onClick={() => send("PREV")}
+            >
+              Go back
+            </Button>}
+
         </main>
       </Card>
       <div className={mobileWhiteFooterStyles} />
