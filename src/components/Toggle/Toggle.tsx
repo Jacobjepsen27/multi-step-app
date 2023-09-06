@@ -7,29 +7,22 @@ import { visuallyHidden } from '../../../styled-system/patterns';
 
 type ToggleProps = React.ComponentPropsWithoutRef<"input">;
 
-function Toggle({ ...inputProps }: ToggleProps, ref: Ref<HTMLInputElement>) {
-  const rootStyles = css(toggleButtonStyle);
+function Toggle(props: ToggleProps, ref: Ref<HTMLInputElement>) {
 
   return <>
-    <input
-      id="toggleId"
-      ref={ref}
-      type="checkbox"
-      className={cx(visuallyHidden(), "peer")}
-      {...inputProps}
-    />
     <label
       htmlFor="toggleId"
-      className={rootStyles}
+      className={css(labelStyles)}
     >
-      <motion.span
+      <input
+        id="toggleId"
+        ref={ref}
+        type="checkbox"
+        className={cx(visuallyHidden(), "peer")}
+        {...props}
+      />
+      <span
         className={css(ballStyle)}
-        layout={true}
-        transition={{
-          type: 'spring',
-          stiffness: 500,
-          damping: 40,
-        }}
       />
     </label>
   </>
@@ -37,7 +30,7 @@ function Toggle({ ...inputProps }: ToggleProps, ref: Ref<HTMLInputElement>) {
 
 export default React.forwardRef<HTMLInputElement, ToggleProps>(Toggle);
 
-const toggleButtonStyle = css.raw({
+const labelStyles = css.raw({
   display: "flex",
   height: "20px",
   width: "38px",
@@ -46,10 +39,7 @@ const toggleButtonStyle = css.raw({
   cursor: "pointer",
   padding: "4px",
   outlineOffset: "2px",
-  _peerChecked: {
-    justifyContent: "flex-end"
-  },
-  _peerFocusWithin: {
+  _focusWithin: {
     outline: "2px solid var(--colors-marine-blue)"
   }
 });
@@ -60,4 +50,8 @@ const ballStyle = css.raw({
   height: "100%",
   aspectRatio: "1/1",
   bgColor: "white",
+  transition: "transform 200ms",
+  _peerChecked: {
+    transform: "translateX(150%)"
+  },
 });
