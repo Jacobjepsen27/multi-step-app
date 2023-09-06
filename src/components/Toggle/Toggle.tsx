@@ -3,30 +3,29 @@ import * as React from 'react';
 import { css } from '../../../styled-system/css';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { visuallyHidden } from '../../../styled-system/patterns';
 
-type ToggleProps = {
-  value?: boolean,
-  defaultValue?: boolean,
-  onChange?: (value: boolean) => void;
-};
+type ToggleProps = React.ComponentPropsWithoutRef<"input">;
 
-function Toggle({ value: valueFromProps, defaultValue, onChange }: ToggleProps) {
+function Toggle({ checked: checkedFromProps, defaultChecked, onChange, ...inputProps }: ToggleProps) {
   const rootStyles = css(toggleButtonStyle);
 
-  const isControlled = valueFromProps != null;
-  const hasDefaultValue = defaultValue != null;
+  const isControlled = checkedFromProps != null;
+  const hasDefaultChecked = defaultChecked != null;
 
-  if (isControlled && hasDefaultValue) {
+  if (isControlled && hasDefaultChecked) {
     throw Error("Toggle component received defaultValue, but is being controlled with value.");
   }
 
-  const [intervalValue, setInternalValue] = useState(hasDefaultValue ? defaultValue : false);
-  const value = isControlled ? valueFromProps : intervalValue;
+  const [intervalValue, setInternalValue] = useState(hasDefaultChecked ? defaultChecked : false);
+  const isChecked = isControlled ? checkedFromProps : intervalValue;
 
-  const handleToggle = () => {
-    const newValue = !value;
+  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.currentTarget.checked;
+
+    // If onChange is not null, propagate event to consumer
     if (onChange) {
-      onChange(newValue)
+      onChange(e)
     }
 
     if (!isControlled) {
@@ -34,13 +33,10 @@ function Toggle({ value: valueFromProps, defaultValue, onChange }: ToggleProps) 
     }
   }
 
-  return <button
-    type="button"
-    role="switch"
-    aria-checked={value}
+  return <label
     className={rootStyles}
-    onClick={handleToggle}
-    style={{ justifyContent: value ? "flex-end" : "flex-start" }}
+    style={{ justifyContent: isChecked ? "flex-end" : "flex-start" }
+    }
   >
     <motion.span
       className={css(ballStyle)}
@@ -51,7 +47,8 @@ function Toggle({ value: valueFromProps, defaultValue, onChange }: ToggleProps) 
         damping: 40,
       }}
     />
-  </button>;
+    <input type="checkbox" className={visuallyHidden()} checked={isChecked} onChange={handleToggle} {...inputProps} />
+  </label >;
 }
 
 export default Toggle;
@@ -64,7 +61,10 @@ const toggleButtonStyle = css.raw({
   bgColor: "marineBlue",
   cursor: "pointer",
   padding: "4px",
-  outlineOffset: "2px"
+  outlineOffset: "2px",
+  _focusWithin: {
+    outline: "2px solid var(--colors-marine-blue)"
+  },
 });
 
 const ballStyle = css.raw({
