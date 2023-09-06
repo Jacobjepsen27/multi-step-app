@@ -12,7 +12,8 @@ const buttonStyle = cva({
     borderRadius: "lg",
     cursor: "pointer",
     transition: "background-color 150ms",
-    outlineOffset: "2px"
+    outlineOffset: "2px",
+    outlineColor: "marineBlue"
   },
   variants: {
     variant: {
