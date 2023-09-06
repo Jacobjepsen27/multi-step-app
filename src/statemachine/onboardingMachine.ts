@@ -1,18 +1,18 @@
 import { PersonalInfoFormValues } from '@/modules/onboarding/components/PersonalInfoForm';
+import { PlanFormValues } from '@/modules/onboarding/components/PlanForm';
 import { InterpreterFrom, MachineConfig, assign, createMachine } from 'xstate';
-
-type Plan = "Arcade" | "Advanced" | "Pro"
 
 export type OnboardingMachineContext = {
     personalInfo?: PersonalInfoFormValues,
-    plan?: Plan,
+    plan?: PlanFormValues,
 }
 
-export type OnboardingEvents = { type: "PREV" } | { type: "personalInfo", data: PersonalInfoFormValues }
+export type OnboardingEvents = { type: "PREV" } | { type: "personalInfo", data: PersonalInfoFormValues } | { type: "plan", data: PlanFormValues }
 
 export const enum OnboardingState {
     PersonalInfo = "personalInfo",
     Plan = "plan",
+    AddOns = "addOns",
     Done = "done"
 }
 
@@ -20,6 +20,7 @@ export interface OnboardingSchema {
     states: {
         [OnboardingState.PersonalInfo]: {},
         [OnboardingState.Plan]: {},
+        [OnboardingState.AddOns]: {},
         [OnboardingState.Done]: {},
     }
 }
@@ -44,6 +45,22 @@ const onboardingMachineConfig: MachineConfig<OnboardingMachineContext, Onboardin
         plan: {
             on: {
                 PREV: [OnboardingState.PersonalInfo],
+                plan: {
+                    target: [OnboardingState.AddOns],
+                    actions: assign((context, event) => {
+                        return {
+                            ...context,
+                            plan: event.data
+                        }
+                    })
+                }
+            }
+        },
+        addOns: {
+            on: {
+                PREV: {
+                    target: [OnboardingState.Plan]
+                }
             }
         },
         done: {

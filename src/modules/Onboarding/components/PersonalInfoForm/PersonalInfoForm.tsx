@@ -5,6 +5,7 @@ import { css } from '../../../../../styled-system/css';
 import { vstack } from '../../../../../styled-system/patterns';
 import TextInput from '@/components/TextInput/TextInput';
 import { useForm } from 'react-hook-form';
+import { headerStyle, textStyle } from '@/styles/commonStyles';
 
 export type PersonalInfoFormValues = {
   name: string,
@@ -43,10 +44,10 @@ function PersonalInfoForm(props: PersonalInfoFormProps) {
   return <>
     <div className={css({ paddingBottom: "16px" })}>
       <div>
-        <h1 className={css({ fontSize: "28px", color: "marineBlue", fontWeight: "bold", mt: "32px" })}>
+        <h1 className={css(headerStyle)}>
           Personal info
         </h1>
-        <p className={css({ fontSize: "14px", color: "coolGray" })}>
+        <p className={css(textStyle)}>
           Please provide your name, email address, and phone number.
         </p>
       </div>
