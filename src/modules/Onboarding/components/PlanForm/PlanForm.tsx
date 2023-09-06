@@ -85,16 +85,16 @@ function PlanForm({ onSubmit, defaultValues, plans }: PlanFormProps) {
           You have the option of monthly or yearly billing.
         </p>
       </div>
-      <div className={css(radioButtonRowStyles)}>
-        {planViewModels.map(vm => (<RadioButton key={vm.planId} value={vm.planId} label={vm.name} priceText={`${vm.price}$`} info={vm.info} icon={vm.icon} {...registerPlanProps} />))}
-
-      </div>
-      {errors.chosenPlanId?.message && <span className={css({ color: "red", fontSize: "14px" })}>{errors.chosenPlanId?.message}</span>}
       <div className={css(grayContainerStyles)}>
         <p className={css(textStyle)} style={{ color: currentBillingCurrencyToggleValue == false ? "var(--colors-marine-blue)" : "" }}>Monthly</p>
         <Toggle {...registerBillingRecurrencyProps} />
         <p className={css(textStyle)} style={{ color: currentBillingCurrencyToggleValue ? "var(--colors-marine-blue)" : "" }}>Yearly</p>
       </div>
+      <div className={css(radioButtonStyles)}>
+        {planViewModels.map(vm => (<RadioButton key={vm.planId} value={vm.planId} label={vm.name} priceText={`${vm.price}$`} info={vm.info} icon={vm.icon} {...registerPlanProps} />))}
+      </div>
+      {errors.chosenPlanId?.message && <span className={css({ color: "red", fontSize: "14px" })}>{errors.chosenPlanId?.message}</span>}
+
     </form>
     <Button form='planForm' variant='primary' cssOverride={css.raw({
       base: { position: "fixed", right: "16px", bottom: "16px" },
@@ -109,4 +109,4 @@ export default PlanForm;
 
 const grayContainerStyles = css.raw({ display: "flex", justifyContent: "center", alignItems: "center", gap: "16px", width: "100%", bgColor: "magnolia", padding: "8px", borderRadius: "lg" })
 const formStyles = flex.raw({ flexDirection: "column", gap: "24px" });
-const radioButtonRowStyles = flex.raw({ flexDirection: "row", gap: "16px" })
+const radioButtonStyles = flex.raw({ flexDirection: { base: "column", lg: "row" }, gap: "16px" })

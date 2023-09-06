@@ -33,12 +33,12 @@ const radioButtonContainer = css.raw({ width: "100%" });
 
 const radioCardStyles = css.raw({
   display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
+  flexDirection: { base: "row", lg: "column" },
+  justifyContent: { base: "", lg: "space-between" },
   alignItems: "flex-start",
   padding: "16px",
   border: "1px solid var(--colors-light-gray)",
-  gap: "32px",
+  gap: { base: "16px", lg: "32px" },
   borderRadius: "lg",
   _peerFocus: {
     outline: "2px solid var(--colors-marine-blue)"

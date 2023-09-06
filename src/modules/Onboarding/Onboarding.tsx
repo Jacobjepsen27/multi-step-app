@@ -85,9 +85,11 @@ const mainStyles = flex({ position: { lg: "relative" }, flexDir: "column", flexG
 const cardStyles = css.raw({
   display: { base: "block", lg: "flex" },
   position: { base: "fixed", lg: "static" },
-  top: { base: "100px", lg: "revert" },
-  left: { base: "16px", lg: "revert" },
+  top: { base: "85px", lg: "revert" },
   right: { base: "16px", lg: "revert" },
+  bottom: { base: "100px" },
+  overflow: "scroll",
+  left: { base: "16px", lg: "revert" },
   maxWidth: { base: "550px", lg: "revert" },
   mx: { base: "auto", lg: "revert" },
   height: { lg: "600px" },
