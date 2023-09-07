@@ -91,7 +91,7 @@ function PlanForm({ onSubmit, defaultValues, plans }: PlanFormProps) {
         <p className={css(textStyle)} style={{ color: currentBillingCurrencyToggleValue ? "var(--colors-marine-blue)" : "" }}>Yearly</p>
       </div>
       <div className={css(radioButtonStyles)}>
-        {planViewModels.map(vm => (<RadioButton key={vm.planId} value={vm.planId} label={vm.name} priceText={`${vm.price}$`} info={vm.info} icon={vm.icon} {...registerPlanProps} />))}
+        {planViewModels.map(vm => (<RadioButton key={vm.planId} value={vm.planId} label={vm.name} priceText={`$${vm.price}/${currentBillingCurrencyToggleValue ? "yr" : "mo"}`} info={vm.info} icon={vm.icon} {...registerPlanProps} />))}
       </div>
       {errors.chosenPlanId?.message && <span className={css({ color: "red", fontSize: "14px" })}>{errors.chosenPlanId?.message}</span>}
 
