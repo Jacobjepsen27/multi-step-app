@@ -25,10 +25,12 @@ const onboardingComponentsMap: OnboardingComponents = {
   done: () => <></>
 }
 
+
 function Onboarding() {
 
   const { service } = React.useContext(OnboardingMachineReactContext);
   const [state, send] = useActor(service);
+
 
   const currentState = state.value;
   const ComponentToRender = onboardingComponentsMap[currentState as OnboardingState];

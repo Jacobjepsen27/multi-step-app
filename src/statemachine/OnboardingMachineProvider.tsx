@@ -1,7 +1,8 @@
 "use client"
 import { useInterpret } from "@xstate/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import onboardingMachine, { OnboardingMachineInterpreter } from "./onboardingMachine";
+import { interpret } from "xstate";
 
 
 type OnboardingContextValue = { service: OnboardingMachineInterpreter };
@@ -15,15 +16,24 @@ const retrieveSavedState = () => {
 }
 
 const OnboardingMachineProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const service = useInterpret(onboardingMachine).start(retrieveSavedState());
+    const [service, setService] = useState<OnboardingMachineInterpreter | undefined>(undefined);
+
+    useEffect(() => {
+        const service = interpret(onboardingMachine).start(retrieveSavedState());
+        setService(service);
+    }, [])
 
     // Persist state changes to allow refresh of page.
     useEffect(() => {
-        const subscription = service.subscribe((state) => {
+        const subscription = service?.subscribe((state) => {
             sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
         });
-        return () => subscription.unsubscribe();
+        return () => subscription?.unsubscribe();
     }, [service]);
+
+    if (service == null) {
+        return null
+    }
 
     return <OnboardingMachineReactContext.Provider value={{ service }}>
         {children}
