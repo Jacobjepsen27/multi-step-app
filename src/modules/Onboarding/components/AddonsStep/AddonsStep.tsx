@@ -1,11 +1,18 @@
-import { headerStyle } from '@/styles/commonStyles';
 import * as React from 'react';
-import { css } from '../../../../../styled-system/css';
+import { OnboardingMachineReactContext } from '@/statemachine/OnboardingMachineProvider';
+import { useActor } from '@xstate/react';
+import AddonsForm, { AddonsFormValues } from '../AddonsForm/AddonsForm';
 
 function AddonsStep() {
-  return <h1 className={css(headerStyle)}>
-    Pick add-ons
-  </h1>;
+  const { service } = React.useContext(OnboardingMachineReactContext);
+  const [state, send] = useActor(service);
+
+  const handleSubmit = (data: AddonsFormValues) => {
+    console.log("submitted: ", data);
+  }
+
+  // return <PersonalInfoForm onSubmit={handleSubmit} defaultValues={state.context.personalInfo} />;
+  return <AddonsForm onSubmit={handleSubmit} />
 }
 
 export default AddonsStep;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export enum PlanBillingRecurrency {
+export enum BillingRecurrency {
     MONTHLY = "monthly",
     YEARLY = "yearly"
 }
@@ -9,7 +9,7 @@ export type Plan = {
     planId: string,
     name: string,
     billings: {
-        type: PlanBillingRecurrency,
+        type: BillingRecurrency,
         price: number,
         info?: string
     }[]
@@ -33,11 +33,11 @@ const PLANS_MOCK_DATA: Plan[] = [
         name: "Arcade",
         billings: [
             {
-                type: PlanBillingRecurrency.MONTHLY,
+                type: BillingRecurrency.MONTHLY,
                 price: 9
             },
             {
-                type: PlanBillingRecurrency.YEARLY,
+                type: BillingRecurrency.YEARLY,
                 price: 90,
                 info: "2 months free"
             }
@@ -48,11 +48,11 @@ const PLANS_MOCK_DATA: Plan[] = [
         name: "Advanced",
         billings: [
             {
-                type: PlanBillingRecurrency.MONTHLY,
+                type: BillingRecurrency.MONTHLY,
                 price: 12
             },
             {
-                type: PlanBillingRecurrency.YEARLY,
+                type: BillingRecurrency.YEARLY,
                 price: 120,
                 info: "2 months free"
             }
@@ -63,11 +63,11 @@ const PLANS_MOCK_DATA: Plan[] = [
         name: "Pro",
         billings: [
             {
-                type: PlanBillingRecurrency.MONTHLY,
+                type: BillingRecurrency.MONTHLY,
                 price: 15
             },
             {
-                type: PlanBillingRecurrency.YEARLY,
+                type: BillingRecurrency.YEARLY,
                 price: 150,
                 info: "2 months free"
             }
