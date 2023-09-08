@@ -3,6 +3,7 @@ import * as React from 'react';
 import { css } from '../../../../../styled-system/css';
 import { vstack } from '../../../../../styled-system/patterns';
 import Button from '@/components/Button';
+import Checkbox from '@/components/Checkbox/Checkbox';
 
 export type AddonsFormValues = {
   selectedAddons: string[]
@@ -26,7 +27,7 @@ function AddonsForm(props: AddonsFormProps) {
         </p>
       </div>
       <form id="addonsForm" className={vstack({ gap: "24px", marginTop: "32px", alignItems: "stretch" })}>
-
+        <Checkbox />
       </form>
     </div>
     <Button form='personalInfo' variant='primary' cssOverride={css.raw({
