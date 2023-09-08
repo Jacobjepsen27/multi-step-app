@@ -3,7 +3,8 @@ import * as React from 'react';
 import { css } from '../../../../../styled-system/css';
 import { vstack } from '../../../../../styled-system/patterns';
 import Button from '@/components/Button';
-import Checkbox from '@/components/Checkbox/Checkbox';
+import AddonRow from '../AddonRow';
+import { Addon } from '../../hooks/useAddons';
 
 export type AddonsFormValues = {
   selectedAddons: string[]
@@ -12,10 +13,11 @@ export type AddonsFormValues = {
 type AddonsFormProps = {
   onSubmit: (data: AddonsFormValues) => void;
   defaultValues?: AddonsFormValues;
+  addOns: Addon[];
 }
 
 function AddonsForm(props: AddonsFormProps) {
-
+  // TODO: integrate with react hook form
   return <>
     <div className={css({ paddingBottom: "16px" })}>
       <div>
@@ -27,7 +29,8 @@ function AddonsForm(props: AddonsFormProps) {
         </p>
       </div>
       <form id="addonsForm" className={vstack({ gap: "24px", marginTop: "32px", alignItems: "stretch" })}>
-        <Checkbox />
+        {props.addOns.map(addOn => (<AddonRow key={addOn.id} name={addOn.name} />))}
+
       </form>
     </div>
     <Button form='personalInfo' variant='primary' cssOverride={css.raw({
