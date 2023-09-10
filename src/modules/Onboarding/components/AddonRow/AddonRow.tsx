@@ -5,8 +5,6 @@ import Checkbox from '@/components/Checkbox';
 import { flex } from '../../../../../styled-system/patterns';
 import { textStyle } from '@/styles/commonStyles';
 
-
-// Check: https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/examples/checkbox/ for accessibility concerns
 // TODO: pass viewmodels to this badboy
 // TODO: Style content of row better
 type AddonRowProps = {
@@ -18,7 +16,7 @@ const AddonRow = ({ name }: AddonRowProps) => {
 
   const styleObj: React.CSSProperties = selected ? {
     borderColor: token("colors.purpleBlue"),
-    background: token("colors.magnolia")
+    backgroundColor: token("colors.magnolia")
   } : {}
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,9 +39,7 @@ const containerStyles = flex.raw({
   padding: "16px",
   border: "1px solid var(--colors-light-gray)",
   borderRadius: "lg",
-  _focusWithin: {
-    outline: "2px solid var(--colors-purple-blue)"
-  },
+  transition: "background-color 200ms",
   _hover: {
     borderColor: "purpleBlue",
     cursor: "pointer"
