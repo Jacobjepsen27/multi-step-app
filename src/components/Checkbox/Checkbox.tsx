@@ -26,7 +26,11 @@ const checkboxContainer = css.raw({
   aspectRatio: "1/1",
   border: "1px solid var(--colors-light-gray)",
   borderRadius: "sm",
-  _peerFocus: {
+  "& > svg": {
+    transition: "opacity 300ms",
+    opacity: 0,
+  },
+  _peerFocusVisible: {
     outline: "2px solid var(--colors-purple-blue)",
     outlineOffset: "2px"
   },
@@ -38,6 +42,7 @@ const checkboxContainer = css.raw({
     backgroundColor: "purpleBlue",
     borderColor: "purpleBlue",
     "& > svg": {
+      opacity: 1,
       color: "white"
     }
   },
