@@ -1,3 +1,4 @@
+import { AddonsFormValues } from '@/modules/onboarding/components/AddonsForm';
 import { PersonalInfoFormValues } from '@/modules/onboarding/components/PersonalInfoForm';
 import { PlanFormValues } from '@/modules/onboarding/components/PlanForm';
 import { InterpreterFrom, MachineConfig, assign, createMachine } from 'xstate';
@@ -5,9 +6,14 @@ import { InterpreterFrom, MachineConfig, assign, createMachine } from 'xstate';
 export type OnboardingMachineContext = {
     personalInfo?: PersonalInfoFormValues,
     plan?: PlanFormValues,
+    addOns?: AddonsFormValues
 }
 
-export type OnboardingEvents = { type: "PREV" } | { type: "personalInfo", data: PersonalInfoFormValues } | { type: "plan", data: PlanFormValues }
+export type OnboardingEvents =
+    { type: "PREV" } |
+    { type: "personalInfo", data: PersonalInfoFormValues } |
+    { type: "plan", data: PlanFormValues } |
+    { type: "addOns", data: AddonsFormValues }
 
 export const enum OnboardingState {
     PersonalInfo = "personalInfo",
@@ -60,11 +66,24 @@ const onboardingMachineConfig: MachineConfig<OnboardingMachineContext, Onboardin
             on: {
                 PREV: {
                     target: [OnboardingState.Plan]
+                },
+                addOns: {
+                    target: [OnboardingState.Done],
+                    actions: assign((context, event) => {
+                        const newContext: OnboardingMachineContext = {
+                            ...context,
+                            addOns: event.data,
+                        }
+                        return newContext;
+                    })
                 }
             }
         },
         done: {
-            type: "final"
+            // type: "final" TODO:,
+            on: {
+                PREV: [OnboardingState.AddOns]
+            }
         }
     },
 };

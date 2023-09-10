@@ -22,7 +22,7 @@ type PlanViewModel = {
 
 export type PlanFormValues = {
   chosenPlanId?: string,
-  billingRecurency: boolean
+  billingRecurrency: boolean
 }
 
 type PlanFormProps = {
@@ -42,18 +42,18 @@ function PlanForm({ onSubmit, defaultValues, plans }: PlanFormProps) {
     {
       defaultValues: {
         chosenPlanId: defaultValues?.chosenPlanId,
-        billingRecurency: defaultValues?.billingRecurency
+        billingRecurrency: defaultValues?.billingRecurrency
       }
     }
   );
 
-  const registerBillingRecurrencyProps = register("billingRecurency");
+  const registerBillingRecurrencyProps = register("billingRecurrency");
   const registerPlanProps = register("chosenPlanId", { required: "Plan selection required." });
 
   const [planViewModels, setPlanViewModels] = useState<PlanViewModel[]>([]);
 
   // Calculate VM's if billingRecurrency changes
-  const currentBillingCurrencyToggleValue = watch("billingRecurency");
+  const currentBillingCurrencyToggleValue = watch("billingRecurrency");
   useEffect(() => {
     if (currentBillingCurrencyToggleValue != null) {
       const currentBillingCurrentType = currentBillingCurrencyToggleValue ? "yearly" : "monthly";

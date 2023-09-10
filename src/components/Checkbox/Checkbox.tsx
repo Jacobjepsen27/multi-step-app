@@ -2,13 +2,14 @@ import * as React from 'react';
 import { css, cx } from '../../../styled-system/css';
 import { visuallyHidden } from '../../../styled-system/patterns';
 import Checkmark from '../icons/Checkmark/Checkmark';
+import { Ref } from 'react';
 
-type Checkbox = React.ComponentPropsWithoutRef<"input">;
+type CheckboxProps = React.ComponentPropsWithoutRef<"input">;
 
-function Checkbox(inputProps: Checkbox) {
+function Checkbox(inputProps: CheckboxProps, ref: Ref<HTMLInputElement>) {
   return (
     <label>
-      <input type='checkbox' {...inputProps} className={cx(visuallyHidden(), "peer")} />
+      <input ref={ref} type='checkbox' {...inputProps} className={cx(visuallyHidden(), "peer")} />
       <div className={css(checkboxContainer)}>
         <Checkmark />
       </div>
@@ -16,7 +17,7 @@ function Checkbox(inputProps: Checkbox) {
   );
 }
 
-export default Checkbox;
+export default React.forwardRef<HTMLInputElement, CheckboxProps>(Checkbox);
 
 const checkboxContainer = css.raw({
   display: "flex",

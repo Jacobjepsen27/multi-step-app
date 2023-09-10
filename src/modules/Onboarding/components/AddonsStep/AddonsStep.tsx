@@ -9,13 +9,12 @@ function AddonsStep() {
   const [state, send] = useActor(service);
 
   const handleSubmit = (data: AddonsFormValues) => {
-    console.log("submitted: ", data);
+    send({ type: "addOns", data });
   }
 
   const addons = useAddons();
 
-  // return <PersonalInfoForm onSubmit={handleSubmit} defaultValues={state.context.personalInfo} />;
-  return <AddonsForm onSubmit={handleSubmit} addOns={addons} />
+  return <AddonsForm onSubmit={handleSubmit} addOns={addons} defaultValues={state.context.addOns} />
 }
 
 export default AddonsStep;
