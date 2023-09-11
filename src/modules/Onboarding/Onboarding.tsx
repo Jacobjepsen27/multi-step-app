@@ -14,6 +14,7 @@ import { OnboardingSchema, OnboardingState } from '@/statemachine/onboardingMach
 import PlanStep from './components/PlanStep';
 import AddonsStep from './components/AddonsStep/AddonsStep';
 import SummaryStep from './components/SummaryStep/SummaryStep';
+import DoneStep from './components/DoneStep/DoneStep';
 
 type OnboardingComponents = {
   [K in keyof OnboardingSchema["states"]]: React.ComponentType<any>;
@@ -24,7 +25,7 @@ const onboardingComponentsMap: OnboardingComponents = {
   plan: PlanStep,
   addOns: AddonsStep,
   summary: SummaryStep,
-  done: () => <></>
+  done: DoneStep
 }
 
 

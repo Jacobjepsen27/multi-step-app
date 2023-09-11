@@ -104,7 +104,7 @@ const onboardingMachineConfig: MachineConfig<OnboardingMachineContext, Onboardin
         done: {
             // type: "final",
             on: {
-                PREV: [OnboardingState.AddOns]
+                PREV: [OnboardingState.Summary]
             }
         }
     },
