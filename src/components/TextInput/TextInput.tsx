@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { flex } from '../../../styled-system/patterns';
-import { ComponentPropsWithoutRef, Ref } from 'react';
+import { ComponentPropsWithoutRef, ForwardedRef } from 'react';
 import { css } from '../../../styled-system/css';
 
 type TextInputProps = Omit<ComponentPropsWithoutRef<"input"> & {
@@ -8,7 +8,7 @@ type TextInputProps = Omit<ComponentPropsWithoutRef<"input"> & {
   errorMessage?: string
 }, 'type'>;
 
-function TextInput(props: TextInputProps, ref: Ref<HTMLInputElement>) {
+function TextInput(props: TextInputProps, ref: ForwardedRef<HTMLInputElement>) {
   const { label, errorMessage, ...inputProps } = props;
 
   const errorStyles = { borderColor: "red", outlineColor: "red" };
