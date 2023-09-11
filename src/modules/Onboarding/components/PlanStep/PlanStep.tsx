@@ -2,7 +2,8 @@ import { OnboardingMachineReactContext } from '@/statemachine/OnboardingMachineP
 import { useActor } from '@xstate/react';
 import * as React from 'react';
 import PlanForm, { PlanFormValues } from '../PlanForm';
-import usePlans from '../../hooks/usePlans';
+import usePlans, { BillingRecurrency } from '../../hooks/usePlans';
+import { Plan } from '@/statemachine/onboardingMachine';
 
 function PlanStep() {
   const { service } = React.useContext(OnboardingMachineReactContext);
@@ -11,10 +12,19 @@ function PlanStep() {
   const plans = usePlans();
 
   const handleSubmit = (data: PlanFormValues) => {
-    send({ type: "plan", data });
+    const newPlan: Plan = {
+      chosenPlanId: data.chosenPlanId,
+      billingRecurrency: data.billingRecurrency ? BillingRecurrency.YEARLY : BillingRecurrency.MONTHLY
+    }
+    send({ type: "plan", data: newPlan });
   }
 
-  return <PlanForm onSubmit={handleSubmit} plans={plans} defaultValues={state.context.plan} />;
+  const planFormValues: PlanFormValues = {
+    chosenPlanId: state.context.plan?.chosenPlanId,
+    billingRecurrency: state.context.plan?.billingRecurrency === BillingRecurrency.YEARLY ? true : false
+  }
+
+  return <PlanForm onSubmit={handleSubmit} plans={plans} defaultValues={planFormValues} />;
 }
 
 export default PlanStep;

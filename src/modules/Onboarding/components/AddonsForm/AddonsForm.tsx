@@ -1,32 +1,31 @@
 import { headerStyle, textStyle } from '@/styles/commonStyles';
 import * as React from 'react';
 import { css } from '../../../../../styled-system/css';
-import { flex, vstack } from '../../../../../styled-system/patterns';
+import { flex } from '../../../../../styled-system/patterns';
 import Button from '@/components/Button';
 import AddonCheckbox from '../AddonCheckbox';
 import { Addon } from '../../hooks/useAddons';
 import { useForm } from 'react-hook-form';
+import { BillingRecurrency } from '../../hooks/usePlans';
 
 export type AddonsFormValues = {
   selectedAddons: string[],
-  // billingRecurrency: boolean; // false -> monthly, true -> yearly
 }
 
 type AddonsFormProps = {
   onSubmit: (data: AddonsFormValues) => void;
   defaultValues?: AddonsFormValues;
   addOns: Addon[];
+  billingRecurrency: BillingRecurrency
 }
 
-function AddonsForm(props: AddonsFormProps) {
+function AddonsForm({ onSubmit, addOns, billingRecurrency, defaultValues }: AddonsFormProps) {
   const { register, handleSubmit } = useForm<AddonsFormValues>({
-    defaultValues: {
-      selectedAddons: ["2"]
-    }
+    defaultValues
   })
 
   const formValidationOk = (data: AddonsFormValues) => {
-    console.log("submit: ", data)
+    onSubmit(data);
   }
 
   return <>
@@ -42,9 +41,9 @@ function AddonsForm(props: AddonsFormProps) {
       <form id="addonsForm" onSubmit={handleSubmit(formValidationOk)} className={css({ mt: "24px" })}>
         <div role="group" aria-labelledby="addons-group-label">
           <ul className={flex({ flexDir: "column", gap: "16px" })}>
-            {props.addOns.map(addOn => (
+            {addOns.map(addOn => (
               <li key={addOn.id}>
-                <AddonCheckbox {...register("selectedAddons")} value={addOn.id} title={addOn.name} />
+                <AddonCheckbox {...register("selectedAddons")} addOn={addOn} billingRecurrency={billingRecurrency} />
               </li>
             ))}
           </ul>

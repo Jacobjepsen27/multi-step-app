@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 
 export enum BillingRecurrency {
-    MONTHLY = "monthly",
-    YEARLY = "yearly"
+    MONTHLY = "Monthly",
+    YEARLY = "Yearly"
 }
 
 export type Plan = {

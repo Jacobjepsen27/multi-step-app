@@ -1,18 +1,23 @@
 import { AddonsFormValues } from '@/modules/onboarding/components/AddonsForm';
 import { PersonalInfoFormValues } from '@/modules/onboarding/components/PersonalInfoForm';
-import { PlanFormValues } from '@/modules/onboarding/components/PlanForm';
+import { BillingRecurrency } from '@/modules/onboarding/hooks/usePlans';
 import { InterpreterFrom, MachineConfig, assign, createMachine } from 'xstate';
+
+export type Plan = {
+    chosenPlanId?: string,
+    billingRecurrency: BillingRecurrency
+}
 
 export type OnboardingMachineContext = {
     personalInfo?: PersonalInfoFormValues,
-    plan?: PlanFormValues,
+    plan?: Plan,
     addOns?: AddonsFormValues
 }
 
 export type OnboardingEvents =
     { type: "PREV" } |
     { type: "personalInfo", data: PersonalInfoFormValues } |
-    { type: "plan", data: PlanFormValues } |
+    { type: "plan", data: Plan } |
     { type: "addOns", data: AddonsFormValues }
 
 export const enum OnboardingState {

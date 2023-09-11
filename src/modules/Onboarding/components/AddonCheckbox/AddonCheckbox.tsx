@@ -5,11 +5,14 @@ import Checkbox from '@/components/Checkbox';
 import { flex } from '../../../../../styled-system/patterns';
 import { headerStyle, textStyle } from '@/styles/commonStyles';
 import { ForwardedRef, useEffect, useRef } from 'react';
+import { BillingRecurrency } from '../../hooks/usePlans';
+import { Addon } from '../../hooks/useAddons';
 
 type AddonCheckboxProps = React.ComponentPropsWithoutRef<"input"> & {
-  title: string,
+  addOn: Addon,
+  billingRecurrency: BillingRecurrency
 }
-const AddonCheckbox = ({ title, onChange, ...inputProps }: AddonCheckboxProps, ref: ForwardedRef<HTMLInputElement>) => {
+const AddonCheckbox = ({ addOn, billingRecurrency, onChange, ...inputProps }: AddonCheckboxProps, ref: ForwardedRef<HTMLInputElement>) => {
   // Some js is required because it is not yet widely supported to style a parent (label in this component) 
   // based on a child state (Checkbox input checked).
   const [selected, setSelected] = React.useState(false);
@@ -39,7 +42,7 @@ const AddonCheckbox = ({ title, onChange, ...inputProps }: AddonCheckboxProps, r
 
   return <label className={css(containerStyles)} style={styleObj}>
     <div className={css(checkboxAndInfoStyles)}>
-      <Checkbox onChange={handleChange} {...inputProps} ref={(input) => {
+      <Checkbox value={addOn.id} onChange={handleChange} {...inputProps} ref={(input) => {
         extraRef.current = input;
         if (typeof ref === 'function') {
           ref(input);
@@ -48,14 +51,23 @@ const AddonCheckbox = ({ title, onChange, ...inputProps }: AddonCheckboxProps, r
         }
       }} />
       <div>
-        <p className={css(headerStyle, { fontSize: "16px", mt: "0" })}>{title}</p>
-        <p className={css(textStyle)}>this is secondary text</p>
+        <p className={css(headerStyle, { fontSize: "16px", mt: "0" })}>{addOn.name}</p>
+        <p className={css(textStyle)}>{addOn.info}</p>
       </div>
     </div>
     <div>
-      <p className={css(priceTextStyles)}>+$2/?</p>
+      <p className={css(priceTextStyles)}>{calculatePriceText(addOn, billingRecurrency)}</p>
     </div>
   </label>
+}
+
+const calculatePriceText = (addOn: Addon, billingRecurrency: BillingRecurrency): string => {
+  const foundAddon = addOn.billings.find(addOn => addOn.type === billingRecurrency);
+  if (foundAddon) {
+    const period = billingRecurrency == BillingRecurrency.MONTHLY ? "mo" : "yr";
+    return `+${foundAddon.price}/${period}`;
+  }
+  return ""
 }
 
 export default React.forwardRef<HTMLInputElement, AddonCheckboxProps>(AddonCheckbox);

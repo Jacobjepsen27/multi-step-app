@@ -14,7 +14,18 @@ function AddonsStep() {
 
   const addons = useAddons();
 
-  return <AddonsForm onSubmit={handleSubmit} addOns={addons} defaultValues={state.context.addOns} />
+  const billingRecurrency = state.context.plan?.billingRecurrency;
+  if (billingRecurrency == null) {
+    send({ type: "PREV" });
+    return null;
+  }
+
+  return <AddonsForm
+    onSubmit={handleSubmit}
+    addOns={addons}
+    defaultValues={state.context.addOns}
+    billingRecurrency={billingRecurrency}
+  />
 }
 
 export default AddonsStep;

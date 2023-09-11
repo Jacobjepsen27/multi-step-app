@@ -2,7 +2,7 @@ import * as React from 'react';
 import { css } from '../../../../../styled-system/css';
 import { flex } from '../../../../../styled-system/patterns';
 import Toggle from '@/components/Toggle';
-import { Plan } from '../../hooks/usePlans';
+import { BillingRecurrency, Plan } from '../../hooks/usePlans';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { headerStyle, textStyle } from '@/styles/commonStyles';
@@ -40,10 +40,7 @@ const planIconMap = {
 function PlanForm({ onSubmit, defaultValues, plans }: PlanFormProps) {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<PlanFormValues>(
     {
-      defaultValues: {
-        chosenPlanId: defaultValues?.chosenPlanId,
-        billingRecurrency: defaultValues?.billingRecurrency
-      }
+      defaultValues
     }
   );
 
@@ -56,9 +53,9 @@ function PlanForm({ onSubmit, defaultValues, plans }: PlanFormProps) {
   const currentBillingCurrencyToggleValue = watch("billingRecurrency");
   useEffect(() => {
     if (currentBillingCurrencyToggleValue != null) {
-      const currentBillingCurrentType = currentBillingCurrencyToggleValue ? "yearly" : "monthly";
+      const currentPlanBilling: BillingRecurrency = currentBillingCurrencyToggleValue ? BillingRecurrency.YEARLY : BillingRecurrency.MONTHLY;
       const newPlanViewModels: PlanViewModel[] = plans.map(plan => {
-        const selectedBillingRecurrency = plan.billings.find(p => p.type === currentBillingCurrentType)
+        const selectedBillingRecurrency = plan.billings.find(p => p.type === currentPlanBilling)
         return {
           icon: planIconMap[plan.planId as "1" | "2" | "3"], // This is not scalable
           planId: plan.planId,
@@ -86,7 +83,7 @@ function PlanForm({ onSubmit, defaultValues, plans }: PlanFormProps) {
         </p>
       </div>
       <div className={css(grayContainerStyles)}>
-        <p className={css(textStyle)} style={{ color: currentBillingCurrencyToggleValue == false ? "var(--colors-marine-blue)" : "" }}>Monthly</p>
+        <p className={css(textStyle)} style={{ color: !currentBillingCurrencyToggleValue ? "var(--colors-marine-blue)" : "" }}>Monthly</p>
         <Toggle {...registerBillingRecurrencyProps} />
         <p className={css(textStyle)} style={{ color: currentBillingCurrencyToggleValue ? "var(--colors-marine-blue)" : "" }}>Yearly</p>
       </div>
