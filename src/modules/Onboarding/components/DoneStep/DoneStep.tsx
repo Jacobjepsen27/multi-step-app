@@ -5,7 +5,7 @@ import { headerStyle, textStyle } from '@/styles/commonStyles';
 import ThankYou from '@/components/icons/ThankYou';
 
 function DoneStep() {
-  return <div className={center({ height: "100%" })}>
+  return <div className={css(containerStyles)}>
     <div className={vstack({ gap: "24px" })}>
       <ThankYou />
       <h1 className={css(headerStyle, { mt: "0" })}>Thank you!</h1>
@@ -17,3 +17,10 @@ function DoneStep() {
 }
 
 export default DoneStep;
+
+const containerStyles = flex.raw({
+  height: "100%",
+  mt: { base: "32px", lg: "-32px" },
+  justifyContent: "center",
+  alignItems: { base: "flex-start", lg: "center" }
+});

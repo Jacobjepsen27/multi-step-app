@@ -3,7 +3,7 @@ import Button from '@/components/Button';
 import Card from '@/components/Card';
 import * as React from 'react';
 import { css } from '../../../styled-system/css';
-import { flex, center } from '../../../styled-system/patterns';
+import { center, flex } from '../../../styled-system/patterns';
 import DesktopBackground from "../../../public/images/bg-sidebar-desktop.svg";
 import MobileBackground from "../../../public/images/bg-sidebar-mobile.svg";
 import Image from "next/image"
@@ -17,6 +17,7 @@ import SummaryStep from './components/SummaryStep/SummaryStep';
 import DoneStep from './components/DoneStep/DoneStep';
 import { useMediaQuery } from './hooks/useMediaQuery';
 import { token } from '../../../styled-system/tokens';
+import NavigationBar from './components/NavigationBar/Navigation';
 
 type OnboardingComponents = {
   [K in keyof OnboardingSchema["states"]]: React.ComponentType<any>;
@@ -44,7 +45,7 @@ function Onboarding() {
   return <>
     <div className={containerStyles}>
       {/* Mobile blue background */}
-      {!isDesktop &&
+      {isDesktop === false &&
         <div className={mobileNavigationStyles}>
           <Image
             priority
@@ -52,9 +53,13 @@ function Onboarding() {
             src={MobileBackground}
             alt={"Decorative background image"}
           />
-          <div className={center({ isolation: "isolate", position: "absolute", top: "32px", left: "0", right: "0" })}>
-            <h1>Mobile progress</h1>
+
+          <div className={center({ isolation: "isolate", position: "absolute", top: "0px", left: "0", right: "0" })}>
+            <NavigationBar />
           </div>
+          {/* <div className={center({ isolation: "isolate", position: "absolute", top: "32px", left: "0", right: "0" })}>
+            <h1>Mobile progress</h1>
+          </div> */}
         </div>
       }
 
@@ -68,8 +73,8 @@ function Onboarding() {
               src={DesktopBackground}
               alt={"Decorative background image"}
             />
-            <div className={center({ isolation: "isolate", height: "100%" })}>
-              <h1>Desktop progress</h1>
+            <div className={flex({ isolation: "isolate", height: "100%" })}>
+              <NavigationBar />
             </div>
           </div>
         }
@@ -84,7 +89,6 @@ function Onboarding() {
             >
               Go back
             </Button>}
-
         </main>
       </Card>
       <div className={mobileWhiteFooterStyles} />
@@ -95,11 +99,11 @@ function Onboarding() {
 
 const containerStyles = css({ display: { base: "block", lg: "flex" }, justifyContent: { lg: "center" }, alignItems: { lg: "center" }, height: "100%" });
 const mobileNavigationStyles = css({ position: "relative", height: "172px", width: "100%", overflow: "hidden" });
-const mainStyles = flex({ position: { lg: "relative" }, flexDir: "column", flexGrow: "1", margin: { lg: "0px 64px 0px 80px" } });
+const mainStyles = flex({ position: { lg: "relative" }, flexDir: "column", flexGrow: "1", margin: { lg: "0px 64px 0px 80px" }, height: "100%" });
 const cardStyles = css.raw({
   display: { base: "block", lg: "flex" },
   position: { base: "fixed", lg: "static" },
-  top: { base: "85px", lg: "revert" },
+  top: { base: "110px", lg: "revert" },
   right: { base: "16px", lg: "revert" },
   bottom: { base: "100px" },
   overflow: "scroll",
