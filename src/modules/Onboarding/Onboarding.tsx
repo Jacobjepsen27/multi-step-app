@@ -15,6 +15,8 @@ import PlanStep from './components/PlanStep';
 import AddonsStep from './components/AddonsStep/AddonsStep';
 import SummaryStep from './components/SummaryStep/SummaryStep';
 import DoneStep from './components/DoneStep/DoneStep';
+import { useMediaQuery } from './hooks/useMediaQuery';
+import { token } from '../../../styled-system/tokens';
 
 type OnboardingComponents = {
   [K in keyof OnboardingSchema["states"]]: React.ComponentType<any>;
@@ -30,6 +32,7 @@ const onboardingComponentsMap: OnboardingComponents = {
 
 
 function Onboarding() {
+  const isDesktop = useMediaQuery(`(min-width: ${token("breakpoints.lg")})`);
 
   const { service } = React.useContext(OnboardingMachineReactContext);
   const [state, send] = useActor(service);
@@ -41,30 +44,36 @@ function Onboarding() {
   return <>
     <div className={containerStyles}>
       {/* Mobile blue background */}
-      <div className={mobileNavigationStyles}>
-        <Image
-          priority
-          className={css({ isolation: "isolate", minHeight: "100%", height: "auto%", width: "100%", objectFit: "cover", position: "absolute", inset: "0" })}
-          src={MobileBackground}
-          alt={"Decorative background image"}
-        />
-        <div className={center({ isolation: "isolate", position: "absolute", top: "32px", left: "0", right: "0" })}>
-          <h1>Mobile progress</h1>
-        </div>
-      </div>
-      <Card css={cardStyles}>
-        {/* Desktop blue background */}
-        <div className={desktopNavigationStyles}>
+      {!isDesktop &&
+        <div className={mobileNavigationStyles}>
           <Image
             priority
-            className={css({ isolation: "isolate", position: "absolute", inset: "0" })}
-            src={DesktopBackground}
+            className={css({ isolation: "isolate", minHeight: "100%", height: "auto%", width: "100%", objectFit: "cover", position: "absolute", inset: "0" })}
+            src={MobileBackground}
             alt={"Decorative background image"}
           />
-          <div className={center({ isolation: "isolate", height: "100%" })}>
-            <h1>Desktop progress</h1>
+          <div className={center({ isolation: "isolate", position: "absolute", top: "32px", left: "0", right: "0" })}>
+            <h1>Mobile progress</h1>
           </div>
         </div>
+      }
+
+      <Card css={cardStyles}>
+        {/* Desktop blue background */}
+        {isDesktop &&
+          <div className={desktopNavigationStyles}>
+            <Image
+              priority
+              className={css({ isolation: "isolate", position: "absolute", inset: "0" })}
+              src={DesktopBackground}
+              alt={"Decorative background image"}
+            />
+            <div className={center({ isolation: "isolate", height: "100%" })}>
+              <h1>Desktop progress</h1>
+            </div>
+          </div>
+        }
+
         <main className={mainStyles}>
           <ComponentToRender />
           {state.nextEvents.includes("PREV") &&
@@ -85,7 +94,7 @@ function Onboarding() {
 }
 
 const containerStyles = css({ display: { base: "block", lg: "flex" }, justifyContent: { lg: "center" }, alignItems: { lg: "center" }, height: "100%" });
-const mobileNavigationStyles = css({ display: "block", hideFrom: "lg", position: "relative", height: "172px", width: "100%", overflow: "hidden" });
+const mobileNavigationStyles = css({ position: "relative", height: "172px", width: "100%", overflow: "hidden" });
 const mainStyles = flex({ position: { lg: "relative" }, flexDir: "column", flexGrow: "1", margin: { lg: "0px 64px 0px 80px" } });
 const cardStyles = css.raw({
   display: { base: "block", lg: "flex" },
@@ -102,7 +111,7 @@ const cardStyles = css.raw({
   isolation: "isolate",
   zIndex: 2
 });
-const desktopNavigationStyles = css({ hideBelow: "md", position: "relative", borderRadius: "lg", overflow: "hidden", width: "274px", objectFit: "cover", flexShrink: "0" });
+const desktopNavigationStyles = css({ position: "relative", borderRadius: "lg", overflow: "hidden", width: "274px", objectFit: "cover", flexShrink: "0" });
 const backButtonStyles = css.raw({
   base: { position: "fixed", left: "16px", bottom: "16px" },
   lg: { position: "absolute", left: "-16px", bottom: "0px" }
