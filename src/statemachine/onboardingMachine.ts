@@ -18,12 +18,15 @@ export type OnboardingEvents =
     { type: "PREV" } |
     { type: "personalInfo", data: PersonalInfoFormValues } |
     { type: "plan", data: Plan } |
-    { type: "addOns", data: AddonsFormValues }
+    { type: "addOns", data: AddonsFormValues } |
+    { type: "summary" } |
+    { type: "changePlan" }
 
 export const enum OnboardingState {
     PersonalInfo = "personalInfo",
     Plan = "plan",
     AddOns = "addOns",
+    Summary = "summary",
     Done = "done"
 }
 
@@ -32,6 +35,7 @@ export interface OnboardingSchema {
         [OnboardingState.PersonalInfo]: {},
         [OnboardingState.Plan]: {},
         [OnboardingState.AddOns]: {},
+        [OnboardingState.Summary]: {},
         [OnboardingState.Done]: {},
     }
 }
@@ -73,7 +77,7 @@ const onboardingMachineConfig: MachineConfig<OnboardingMachineContext, Onboardin
                     target: [OnboardingState.Plan]
                 },
                 addOns: {
-                    target: [OnboardingState.Done],
+                    target: [OnboardingState.Summary],
                     actions: assign((context, event) => {
                         const newContext: OnboardingMachineContext = {
                             ...context,
@@ -84,8 +88,21 @@ const onboardingMachineConfig: MachineConfig<OnboardingMachineContext, Onboardin
                 }
             }
         },
+        summary: {
+            on: {
+                PREV: {
+                    target: [OnboardingState.AddOns]
+                },
+                summary: {
+                    target: [OnboardingState.Done]
+                },
+                changePlan: {
+                    target: [OnboardingState.Plan]
+                }
+            }
+        },
         done: {
-            // type: "final" TODO:,
+            // type: "final",
             on: {
                 PREV: [OnboardingState.AddOns]
             }

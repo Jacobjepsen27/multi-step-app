@@ -13,6 +13,7 @@ import { useActor } from '@xstate/react';
 import { OnboardingSchema, OnboardingState } from '@/statemachine/onboardingMachine';
 import PlanStep from './components/PlanStep';
 import AddonsStep from './components/AddonsStep/AddonsStep';
+import SummaryStep from './components/SummaryStep/SummaryStep';
 
 type OnboardingComponents = {
   [K in keyof OnboardingSchema["states"]]: React.ComponentType<any>;
@@ -22,6 +23,7 @@ const onboardingComponentsMap: OnboardingComponents = {
   personalInfo: PersonalInfoStep,
   plan: PlanStep,
   addOns: AddonsStep,
+  summary: SummaryStep,
   done: () => <></>
 }
 
