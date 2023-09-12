@@ -24,7 +24,7 @@ function PersonalInfoForm(props: PersonalInfoFormProps) {
   const registerNameProps = register("name", {
     required: "This field is required.",
     pattern: {
-      value: /^(?!\s).+(?<!\s)$/,
+      value: /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/,
       "message": "Only letters allowed"
     },
   });
