@@ -57,9 +57,6 @@ function Onboarding() {
           <div className={center({ isolation: "isolate", position: "absolute", top: "0px", left: "0", right: "0" })}>
             <NavigationBar />
           </div>
-          {/* <div className={center({ isolation: "isolate", position: "absolute", top: "32px", left: "0", right: "0" })}>
-            <h1>Mobile progress</h1>
-          </div> */}
         </div>
       }
 
@@ -97,6 +94,8 @@ function Onboarding() {
   </>;
 }
 
+export default Onboarding;
+
 const containerStyles = css({ display: { base: "block", lg: "flex" }, justifyContent: { lg: "center" }, alignItems: { lg: "center" }, height: "100%" });
 const mobileNavigationStyles = css({ position: "relative", height: "172px", width: "100%", overflow: "hidden" });
 const mainStyles = flex({ position: { lg: "relative" }, flexDir: "column", flexGrow: "1", margin: { lg: "0px 64px 0px 80px" }, height: "100%" });
@@ -123,4 +122,4 @@ const backButtonStyles = css.raw({
 const mobileWhiteFooterStyles = css({
   hideFrom: "lg", bg: "white", padding: "16px", height: "69px", isolation: "isolate", zIndex: 1, position: "fixed", bottom: "0", left: "0", right: "0"
 });
-export default Onboarding;
+

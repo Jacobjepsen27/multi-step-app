@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { center, flex, vstack } from '../../../../../styled-system/patterns';
+import { flex, vstack } from '../../../../../styled-system/patterns';
 import { css } from '../../../../../styled-system/css';
 import { headerStyle, textStyle } from '@/styles/commonStyles';
 import ThankYou from '@/components/icons/ThankYou';
