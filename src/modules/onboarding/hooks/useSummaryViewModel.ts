@@ -45,7 +45,9 @@ function useSummaryViewModel(context: OnboardingMachineContext): SummaryViewMode
         const billingRecurrencyShortText = billingRecurrencyToShortString(billingRecurrency);
         const currentPlan = plans.find(p => p.planId === context.plan?.chosenPlanId);
         const currentPlanBillingRecurrency = currentPlan?.billings.find(b => b.type === billingRecurrency)
-        const currentAddons = addons.filter(a => context.addOns?.selectedAddons.includes(a.id));
+        const currentAddons = addons.filter(a => {
+            return context.addOns?.selectedAddons.includes(a.id)
+        });
 
         let addonsPrice = 0;
         const addonViewModels: SummaryAddonViewModel[] = currentAddons.map(addOn => {

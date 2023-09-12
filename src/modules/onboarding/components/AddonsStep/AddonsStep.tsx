@@ -9,6 +9,7 @@ function AddonsStep() {
   const [state, send] = useActor(service);
 
   const handleSubmit = (data: AddonsFormValues) => {
+    console.log("data", data);
     send({ type: "addOns", data });
   }
 

@@ -12,7 +12,6 @@ import useSummaryViewModel from '../../hooks/useSummaryViewModel';
 function SummaryStep() {
   const { service } = React.useContext(OnboardingMachineReactContext);
   const [state, send] = useActor(service);
-
   const viewModel = useSummaryViewModel(state.context);
 
   const handleChangePlanClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
@@ -39,7 +38,10 @@ function SummaryStep() {
         </div>
         <p className={css(headerStyle, { fontSize: "16px", mt: "0" })}>{viewModel?.planPrice}</p>
       </div>
-      <hr className={css({ color: "lightGray" })} />
+      {viewModel?.addons && viewModel.addons.length > 0 && (
+        <hr className={css({ color: "lightGray" })} />
+      )}
+
       {viewModel?.addons.map(a => {
         return <div key={a.name} className={css(rowStyles)}>
           <p className={css(textStyle)}>{a.name}</p>

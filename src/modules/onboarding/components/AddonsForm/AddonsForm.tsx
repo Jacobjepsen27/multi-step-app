@@ -21,7 +21,9 @@ type AddonsFormProps = {
 
 function AddonsForm({ onSubmit, addOns, billingRecurrency, defaultValues }: AddonsFormProps) {
   const { register, handleSubmit } = useForm<AddonsFormValues>({
-    defaultValues
+    defaultValues: {
+      selectedAddons: defaultValues?.selectedAddons ?? []
+    }
   })
 
   const formValidationOk = (data: AddonsFormValues) => {

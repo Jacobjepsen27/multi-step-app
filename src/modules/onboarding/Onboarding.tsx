@@ -117,7 +117,7 @@ const mainStyles = flex({ position: { lg: "relative" }, flexDir: "column", flexG
 const desktopNavigationStyles = css({ position: "relative", borderRadius: "lg", overflow: "hidden", width: "274px", objectFit: "cover", flexShrink: "0" });
 const backButtonStyles = css.raw({
   base: { position: "fixed", left: "16px", bottom: "16px" },
-  lg: { position: "absolute", left: "-16px", bottom: "0px" }
+  lg: { position: "absolute", left: "0", bottom: "0px" }
 });
 const mobileWhiteFooterStyles = css({
   hideFrom: "lg", bg: "white", padding: "16px", height: "69px", isolation: "isolate", zIndex: 1, position: "fixed", bottom: "0", left: "0", right: "0"
