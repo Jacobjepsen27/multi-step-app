@@ -98,22 +98,22 @@ export default Onboarding;
 
 const containerStyles = css({ display: { base: "block", lg: "flex" }, justifyContent: { lg: "center" }, alignItems: { lg: "center" }, height: "100%" });
 const mobileNavigationStyles = css({ position: "relative", height: "172px", width: "100%", overflow: "hidden" });
-const mainStyles = flex({ position: { lg: "relative" }, flexDir: "column", flexGrow: "1", margin: { lg: "0px 64px 0px 80px" }, height: "100%" });
 const cardStyles = css.raw({
   display: { base: "block", lg: "flex" },
   position: { base: "fixed", lg: "static" },
   top: { base: "110px", lg: "revert" },
   right: { base: "16px", lg: "revert" },
   bottom: { base: "100px" },
-  overflow: "scroll",
   left: { base: "16px", lg: "revert" },
   maxWidth: { base: "550px", lg: "revert" },
   mx: { base: "auto", lg: "revert" },
   height: { lg: "600px" },
   width: { lg: "900px" },
   isolation: "isolate",
-  zIndex: 2
+  zIndex: 2,
+  padding: { base: "0px 16px", lg: "16px" }
 });
+const mainStyles = flex({ position: { lg: "relative" }, flexDir: "column", flexGrow: "1", margin: { lg: "0px 64px 0px 80px" }, height: "100%", overflow: "scroll", padding: { base: "16px 0px", lg: "0px" } });
 const desktopNavigationStyles = css({ position: "relative", borderRadius: "lg", overflow: "hidden", width: "274px", objectFit: "cover", flexShrink: "0" });
 const backButtonStyles = css.raw({
   base: { position: "fixed", left: "16px", bottom: "16px" },
