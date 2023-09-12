@@ -111,9 +111,9 @@ const cardStyles = css.raw({
   width: { lg: "900px" },
   isolation: "isolate",
   zIndex: 2,
-  padding: { base: "0px 16px", lg: "16px" }
+  padding: { base: "0px 8px", lg: "16px" }
 });
-const mainStyles = flex({ position: { lg: "relative" }, flexDir: "column", flexGrow: "1", margin: { lg: "0px 64px 0px 80px" }, height: "100%", overflow: "scroll", padding: { base: "16px 0px", lg: "0px" } });
+const mainStyles = flex({ position: { lg: "relative" }, flexDir: "column", flexGrow: "1", margin: { lg: "0px 64px 0px 80px" }, height: "100%", overflow: "scroll", padding: { base: "16px 4px", lg: "4px" } });
 const desktopNavigationStyles = css({ position: "relative", borderRadius: "lg", overflow: "hidden", width: "274px", objectFit: "cover", flexShrink: "0" });
 const backButtonStyles = css.raw({
   base: { position: "fixed", left: "16px", bottom: "16px" },
